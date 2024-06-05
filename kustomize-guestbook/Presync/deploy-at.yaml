@@ -10,7 +10,7 @@ spec:
     spec:
       containers:
         - name: pre-sync-container
-          image: docker.io/library/bash:4.0
+          image: docker.io/theodor2311/bash:4.0-tz
           command: ["/usr/local/bin/bash", "-c"]
           args:
             - |
