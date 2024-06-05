@@ -10,7 +10,7 @@ spec:
     spec:
       containers:
         - name: pre-sync-container
-          image: busybox
+          image: alpine
           command: ["/bin/bash", "-c"]
           args:
             - |
