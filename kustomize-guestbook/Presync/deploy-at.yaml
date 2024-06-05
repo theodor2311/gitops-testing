@@ -11,10 +11,10 @@ spec:
       containers:
         - name: pre-sync-container
           image: busybox
-          command: ["/bin/bash", "-c"]
+          command: ["/bin/sh", "-c"]
           args:
             - |
-              #!/bin/bash
+              #!/bin/sh
               START_DEPLOY_MSG="Application Deployment Start"
 
               echo "Time Zone: ${TZ}"
