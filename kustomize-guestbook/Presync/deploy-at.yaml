@@ -18,7 +18,7 @@ spec:
               START_DEPLOY_MSG="Application Deployment Start"
 
               echo "Time Zone: ${TZ}"
-              echo "Current time: $(date -u +'%Y-%m-%d %H:%M:%S')"
+              echo "Current time: $(date +'%Y-%m-%d %H:%M:%S')"
               echo "Deployment Start Time: ${DEPLOYMENT_TIME}"
 
               # Validate DEPLOYMENT_TIME format
