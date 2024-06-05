@@ -11,10 +11,10 @@ spec:
       containers:
         - name: pre-sync-container
           image: docker.io/library/bash:4.0
-          command: ["/bin/bash", "-c"]
+          command: ["/usr/local/bin/bash", "-c"]
           args:
             - |
-              #!/bin/bash
+              #!/usr/bin/env bash
               START_DEPLOY_MSG="Application Deployment Start"
 
               echo "Time Zone: ${TZ}"
