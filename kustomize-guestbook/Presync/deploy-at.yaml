@@ -43,6 +43,6 @@ spec:
             - name: TZ
               value: Asia/Hong_Kong
             - name: DEPLOYMENT_TIME
-              value: '2024-06-05 15:25:00'
+              value: '2024-06-05 16:40:00'
       restartPolicy: Never
   backoffLimit: 0
