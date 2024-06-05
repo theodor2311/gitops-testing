@@ -22,7 +22,7 @@ spec:
               echo "Deployment Start Time: ${DEPLOYMENT_TIME}"
 
               # Validate DEPLOYMENT_TIME format
-              if ! [[ $DEPLOYMENT_TIME =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}\ [0-9]{2}:[0-9]{2}:[0-9]{2}$ ]]; then
+              if ! [[ "${DEPLOYMENT_TIME}" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}\ [0-9]{2}:[0-9]{2}:[0-9]{2}$ ]]; then
                   echo "Error: Invalid DEPLOYMENT_TIME format. Expected format: YYYY-MM-DD HH:MM:SS" >&2
                   exit 2
               fi
