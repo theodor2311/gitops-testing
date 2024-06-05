@@ -10,11 +10,11 @@ spec:
     spec:
       containers:
         - name: pre-sync-container
-          image: busybox
-          command: ["/bin/sh", "-c"]
+          image: docker.io/library/bash:4.0
+          command: ["/bin/bash", "-c"]
           args:
             - |
-              #!/bin/sh
+              #!/bin/bash
               START_DEPLOY_MSG="Application Deployment Start"
 
               echo "Time Zone: ${TZ}"
@@ -35,6 +35,7 @@ spec:
                   exit 0
               fi
               echo "Time difference in seconds: $sec_diff"
+              echo "Start sleeping for ${sec_diff} seconds"
               sleep "$sec_diff"
               echo "${START_DEPLOY_MSG}"
               exit 0
