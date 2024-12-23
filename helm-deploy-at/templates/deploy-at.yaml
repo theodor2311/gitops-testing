@@ -1,0 +1,48 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.app }}-deploy-at
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+        - name: pre-sync-container
+          image: docker.io/theodor2311/bash:4.0-tz
+          command: ["/usr/local/bin/bash", "-c"]
+          args:
+            - |
+              #!/usr/bin/env bash
+              START_DEPLOY_MSG="Application Deployment Start"
+
+              echo "Time Zone: ${TZ}"
+              echo "Current time: $(date +'%Y-%m-%d %H:%M:%S')"
+              echo "Deployment Start Time: ${DEPLOYMENT_TIME}"
+
+              # Validate DEPLOYMENT_TIME format
+              if ! [[ "${DEPLOYMENT_TIME}" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}\ [0-9]{2}:[0-9]{2}:[0-9]{2}$ ]]; then
+                  echo "Error: Invalid DEPLOYMENT_TIME format. Expected format: YYYY-MM-DD HH:MM:SS" >&2
+                  exit 2
+              fi
+
+              # Calculate the time difference in seconds
+              sec_diff=$(($(date -d "$DEPLOYMENT_TIME" "+%s") - $(date "+%s")))
+
+              if ((sec_diff <= 0)); then
+                  echo "${START_DEPLOY_MSG}"
+                  exit 0
+              fi
+              echo "Time difference in seconds: $sec_diff"
+              echo "Start sleeping for ${sec_diff} seconds"
+              sleep "$sec_diff"
+              echo "${START_DEPLOY_MSG}"
+              exit 0
+          env:
+            - name: TZ
+              value: Asia/Hong_Kong
+            - name: DEPLOYMENT_TIME
+              value: '{{ .Values.deployment_time }}'
+      restartPolicy: Never
+  backoffLimit: 2
