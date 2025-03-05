@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: kustomize-appset
+  namespace: openshift-gitops
+spec:
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  generators:
+  - git:
+      directories:
+      - path: 'appset-testing/*/overlays/*'
+      repoURL: https://github.com/theodor2311/gitops-testing.git
+      revision: HEAD
+  goTemplate: true
+  goTemplateOptions:
+  - missingkey=error
+  template:
+    metadata:
+      name: kustomize-appset-{{index .path.segments 1}}-{{index .path.segments 3}}
+    spec:
+      destination:
+        namespace: default
+        server: 'https://kubernetes.default.svc'
+      project: default
+      source:
+        path: '{{.path.path}}'
+        repoURL: https://github.com/theodor2311/gitops-testing.git
+        targetRevision: HEAD
