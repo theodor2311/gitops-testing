@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kustomize-app
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: openshift-gitops
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: appset-testing/kustomize/overlays/dev
+    repoURL: https://github.com/theodor2311/gitops-testing.git
+    targetRevision: HEAD
