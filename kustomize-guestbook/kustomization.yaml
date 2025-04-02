@@ -3,7 +3,6 @@ namePrefix: kustomize-
 resources:
 - guestbook-ui-deployment.yaml
 - guestbook-ui-svc.yaml
-- test.yaml
 - ./Presync/deploy-at.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
